@@ -15,13 +15,19 @@ const routes = [
     component: EventList,
     props: route => ({ page: parseInt(route.query.page) || 1 })
   },
+  // {
+  //   path: '/about-us',
+  //   name: 'About',
+  //   component: About,
+  //   // alias is not be SEO friendly: same content in two places
+  //   alias: '/about'
+  // },
+  // LAZY LOADING
   {
-    path: '/about-us',
+    path: '/about',
     name: 'About',
-    component: About,
-    // alias is not be SEO friendly: same content in two places
-    alias: '/about'
-  },
+    component: () => import('../views/About.vue')
+  }
   // {
   //   path: '/about',
   //   redirect: {name: 'About'}
