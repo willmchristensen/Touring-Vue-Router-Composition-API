@@ -2,7 +2,9 @@
 import EventCard from "@/components/EventCard.vue";
 import EventService from "@/services/EventService.js";
 import { onMounted, ref, computed, watch } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const props = defineProps(["page"]);
 const events = ref(null);
 // --------------HASNEXTPAGE - TOTALEVENTS-------------------------
@@ -20,7 +22,9 @@ const fetchEvents = () => {
       totalEvents.value = response.headers["x-total-count"]
     })
     .catch((error) => {
-      console.log(error);
+      // NETWORK ERROR
+      router.push({name: 'NetworkError'})
+      // console.log(error);
     });
 }
 

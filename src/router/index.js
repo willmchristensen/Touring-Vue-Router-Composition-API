@@ -5,6 +5,8 @@ import EventLayout from "@/views/event/Layout.vue";
 import EventDetails from "@/views/event/EventDetails.vue";
 import EventRegister from "@/views/event/Register.vue";
 import EventEdit from '@/views/event/Edit.vue';
+import NotFound from '@/views/event/NotFound.vue';
+import NetworkError from '@/views/event/NetworkError.vue';
 
 const routes = [
   {
@@ -74,6 +76,36 @@ const routes = [
       redirect: to => {
         return {path: '/events/' + to.params.afterEvent}
       }
+  },
+  {
+    // PAGE DOESNT EXIST
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
+  },
+  {
+    // RESOURCE DOESNT EXIST
+    path: '/404/:resource',
+    name: '404Resource',
+    component: NotFound,
+    // pushing to this page in our API call: LAYOUT.VUE
+    props: true
+  },
+  {
+    // RESOURCE DOESNT EXIST
+    path: '/404/:resource',
+    name: '404Resource',
+    component: NotFound,
+    // pushing to this page in our API call: LAYOUT.VUE
+    props: true
+  },
+  {
+    // NETWORK ERROR
+    path: '/network-error',
+    name: 'NetworkError',
+    component: NetworkError,
+    // pushing to this page in our API call: LAYOUT.VUE
+    props: true
   }
 ];
 
