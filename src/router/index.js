@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import About from '@/views/About.vue';
 import EventList from "@/views/EventList.vue";
 import EventLayout from "@/views/event/Layout.vue";
 import EventDetails from "@/views/event/EventDetails.vue";
@@ -13,7 +14,18 @@ const routes = [
     props: route => ({ page: parseInt(route.query.page) || 1 })
   },
   {
-    path: '/event/:id',
+    path: '/about-us',
+    name: 'About',
+    component: About,
+    // alias is not be SEO friendly: same content in two places
+    alias: '/about'
+  },
+  // {
+  //   path: '/about',
+  //   redirect: {name: 'About'}
+  // },
+  {
+    path: '/events/:id',
     name: 'EventLayout',
     props: true,
     component: EventLayout,
@@ -37,6 +49,32 @@ const routes = [
       },
     ]
   },
+  // {
+  //   // ID AUTOMATICALLY PASSED THROUGH
+  //   // NESTED ROUTES BREAK: 
+  //   // add children or 
+  //   // :afterEvent(.*) added to path
+  //   path: '/event/:id',
+  //     redirect: () => {
+  //       return {name: 'EventDetails'}
+  //     },
+  //     children: [
+  //       {
+  //         path: 'register', 
+  //         redirect: () => ({name: 'EventRegister'})
+  //       },
+  //       {
+  //         path: 'edit', 
+  //         redirect: () => ({name: 'EventEdit'})
+  //       }
+  //     ]
+  // },
+  {
+    path: '/event/:afterEvent(.*)',
+      redirect: to => {
+        return {path: '/events/' + to.params.afterEvent}
+      }
+  }
 ];
 
 const router = createRouter({
